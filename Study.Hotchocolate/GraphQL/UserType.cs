@@ -10,7 +10,6 @@ public class UserType : ObjectType<User>
         descriptor.Field(_ => _.Id).IsProjected();
         descriptor.Field(_ => _.EmailDomain).ParentRequires<User>(_ => _.Email);
         descriptor.Field(_ => _.NameLength).ParentRequires<User>(_ => _.Name);
-        descriptor.Field(_ => _.AddressDetail)
-            .ParentRequires<User>(_ => _.Address).UseProjection();
+        descriptor.Field(_ => _.AddressDetail).ParentRequires<User>(_ => _.Address);
     }
 }
