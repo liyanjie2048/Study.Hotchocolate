@@ -1,15 +1,17 @@
 namespace Study.HotChocolate.GraphQL;
 
 [QueryType]
-public class Query
+public class UserQuery
 {
+    // [UseProjection]
     [UseFiltering]
     [UseSorting]
     public IQueryable<User> Users(
         [Service] DataContext context,
         IResolverContext resolverContext)
     {
-        return context.Set<User>().AsQueryable().Select(resolverContext.Selection);
+        return context.Set<User>().AsNoTracking()
+            .Select(resolverContext.Selection);
     }
 
     public Task<User?> UserById(

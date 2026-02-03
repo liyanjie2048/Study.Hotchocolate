@@ -14,5 +14,10 @@ public class UserExtension
     {
         return $"{user.Name}+{user.Name}";
     }
-}
 
+    public int? IdentityCount(
+        [Parent($"{nameof(User.Identities)}")] User user)
+    {
+        return user.Identities.Count;
+    }
+}

@@ -16,6 +16,11 @@ builder.Services.AddDbContextPool<DataContext>(optionsBuilder =>
             .RuleFor(_ => _.State, _ => new Faker<State>()
                 .RuleFor(x => x.Value, a => true)
                 .RuleFor(_ => _.Remark, a => a.Lorem.Letter(6)))
+            .RuleFor(_ => _.Identities, _ => new Faker<Identity>()
+                .RuleFor(x => x.Id, a => a.Random.Guid())
+                .RuleFor(x => x.Type, a => a.Lorem.Letter(2))
+                .RuleFor(x => x.Value, a => a.Name.LastName())
+                .Generate(3))
             .RuleForType<ICollection<Post>>(typeof(ICollection<Post>), p => new Faker<Post>()
                 .RuleFor(x => x.Title, _ => _.Lorem.Sentence(5))
                 .RuleFor(x => x.Content, _ => _.Lorem.Sentence(10))
@@ -26,27 +31,9 @@ builder.Services.AddDbContextPool<DataContext>(optionsBuilder =>
 });
 
 builder.Services.AddGraphQLServer()
-    .ModifyRequestOptions(o => { o.IncludeExceptionDetails = true; })
+    .ModifyRequestOptions(o => o.IncludeExceptionDetails = true)
     .AddSorting()
     .AddFiltering()
-    // .AddProjections(descriptor =>
-    // {
-    //     descriptor.Provider(new MyQueryableProjectionProvider(x =>
-    //     {
-    //         ArgumentNullException.ThrowIfNull(descriptor);
-    //         x.RegisterFieldHandler<QueryableProjectionScalarHandler>();
-    //         x.RegisterFieldHandler<QueryableProjectionListHandler>();
-    //         x.RegisterFieldHandler<QueryableProjectionFieldHandler>();
-    //         x.RegisterFieldInterceptor<QueryableFilterInterceptor>();
-    //         x.RegisterFieldInterceptor<QueryableSortInterceptor>();
-    //         x.RegisterFieldInterceptor<QueryableFirstOrDefaultInterceptor>();
-    //         x.RegisterFieldInterceptor<QueryableSingleOrDefaultInterceptor>();
-    //         x.RegisterOptimizer<IsProjectedProjectionOptimizer>();
-    //         x.RegisterOptimizer<QueryablePagingProjectionOptimizer>();
-    //         x.RegisterOptimizer<QueryableFilterProjectionOptimizer>();
-    //         x.RegisterOptimizer<QueryableSortProjectionOptimizer>();
-    //     }));
-    // })
     .AddProjections()
     .AddHotchocolateTypes()
     ;
