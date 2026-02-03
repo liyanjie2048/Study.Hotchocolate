@@ -1,6 +1,10 @@
 global using Bogus;
 
+global using GreenDonut.Data;
+
+global using HotChocolate.Execution.Processing;
+global using HotChocolate.Resolvers;
+
 global using Microsoft.EntityFrameworkCore;
 
 global using Study.HotChocolate.Data;
-global using Study.HotChocolate.GraphQL;

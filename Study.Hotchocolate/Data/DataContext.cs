@@ -11,7 +11,7 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
         user.HasKey(_ => _.Id);
         user.Property(_ => _.Name).HasMaxLength(255);
         user.Property(_ => _.Email).HasMaxLength(255);
-        user.OwnsOne(_ => _.Address, one =>
+        user.ComplexProperty(_ => _.Address, one =>
         {
             one.ToJson();
             one.Property(_ => _.AdCode).HasMaxLength(255);
@@ -21,6 +21,12 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
         {
             one.ToJson();
             one.Property(_ => _.Remark).HasMaxLength(255);
+        });
+        user.OwnsMany(_ => _.Identities, many =>
+        {
+            many.ToJson();
+            many.Property(_ => _.Type).HasMaxLength(255);
+            many.Property(_ => _.Value).HasMaxLength(255);
         });
         user.HasMany(_ => _.Posts).WithOne(_ => _.User).HasForeignKey(_ => _.User_Id);
 
