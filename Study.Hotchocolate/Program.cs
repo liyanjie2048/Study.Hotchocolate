@@ -14,8 +14,8 @@ builder.Services.AddDbContextPool<DataContext>(optionsBuilder =>
                 .RuleFor(x => x.AdCode, a => a.Random.Number(100000000, 999999999).ToString())
                 .RuleFor(x => x.Detail, a => a.Address.StreetAddress()))
             .RuleFor(_ => _.State, _ => new Faker<State>()
-                .RuleFor(x => x.Value, a => true)
-                .RuleFor(_ => _.Remark, a => a.Lorem.Letter(6)))
+                .RuleFor(x => x.Value, _ => true)
+                .RuleFor(x => x.Remark, a => a.Lorem.Letter(6)))
             .RuleFor(_ => _.Identities, _ => new Faker<Identity>()
                 .RuleFor(x => x.Id, a => a.Random.Guid())
                 .RuleFor(x => x.Type, a => a.Lorem.Letter(2))
@@ -41,5 +41,6 @@ builder.Services.AddGraphQLServer()
 var app = builder.Build();
 
 app.MapGraphQL();
+app.Map("/", (HttpContext context) => context.Response.Redirect("/graphql"));
 
 app.Run();
