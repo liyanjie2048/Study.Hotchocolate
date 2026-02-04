@@ -4,6 +4,7 @@ global using GreenDonut.Data;
 
 global using HotChocolate.Execution.Processing;
 global using HotChocolate.Resolvers;
+global using HotChocolate.Types.Pagination;
 
 global using Microsoft.EntityFrameworkCore;
 

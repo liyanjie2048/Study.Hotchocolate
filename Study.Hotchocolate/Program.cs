@@ -32,9 +32,10 @@ builder.Services.AddDbContextPool<DataContext>(optionsBuilder =>
 
 builder.Services.AddGraphQLServer()
     .ModifyRequestOptions(o => o.IncludeExceptionDetails = true)
-    .AddSorting()
     .AddFiltering()
-    .AddProjections()
+    .AddSorting()
+    .AddPagingArguments()
+    .AddQueryContext()
     .AddHotchocolateTypes()
     ;
 

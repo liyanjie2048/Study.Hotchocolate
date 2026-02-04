@@ -1,24 +1,40 @@
 namespace Study.HotChocolate.GraphQL;
 
 [QueryType]
-public class UserQuery
+public static class UserQuery
 {
-    // [UseProjection]
+    [UsePaging]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<User> Users(
+    public static ValueTask<Connection<User>> Users(
+        PagingArguments pagingArguments,
+        QueryContext<User> queryContext,
         [Service] DataContext context,
-        IResolverContext resolverContext)
+        CancellationToken cancellationToken = default)
     {
         return context.Set<User>().AsNoTracking()
-            .Select(resolverContext.Selection);
+            .With(queryContext.Include(_ => _.Id), Defaults.DefaultOrder)
+            .ToPageAsync(pagingArguments, cancellationToken)
+            .ToConnectionAsync();
     }
 
-    public Task<User?> UserById(
+    [UseFirstOrDefault]
+    [UseFiltering]
+    [UseSorting]
+    public static IQueryable<User> UserFirst(
+        QueryContext<User> queryContext,
+        [Service] DataContext context,
+        CancellationToken cancellationToken = default)
+    {
+        return context.Set<User>().AsNoTracking()
+            .With(queryContext.Include(_ => _.Id), Defaults.DefaultOrder);
+    }
+
+    public static Task<User?> UserById(
         Guid id,
         [Service] IUserByIdDataLoader userByIdDataLoader,
-        IResolverContext resolverContext)
+        CancellationToken cancellationToken = default)
     {
-        return userByIdDataLoader.Select(resolverContext.Selection).LoadAsync(id);
+        return userByIdDataLoader.LoadAsync(id, cancellationToken);
     }
 }

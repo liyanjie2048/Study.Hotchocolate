@@ -1,8 +1,7 @@
 namespace Study.HotChocolate.Data;
 
-public class Post
+public class Post : Entity
 {
-    public Guid Id { get; set; }
     public required string Title { get; set; }
     public required string Content { get; set; }
 

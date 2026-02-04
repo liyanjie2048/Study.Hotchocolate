@@ -1,24 +1,27 @@
 namespace Study.HotChocolate.GraphQL;
 
 [QueryType]
-public class PostQuery
+public static class PostQuery
 {
+    [UsePaging]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<Post> Posts(
+    public static ValueTask<Connection<Post>> Posts(
+        PagingArguments pagingArguments,
+        QueryContext<Post> queryContext,
         [Service] DataContext context,
-        IResolverContext resolverContext)
+        CancellationToken cancellationToken = default)
     {
-        return context.Set<Post>().AsNoTracking()
-            .Select(resolverContext.Selection);
+        return context.Set<Post>()
+            .With(queryContext.Include(_ => _.Id), Defaults.DefaultOrder)
+            .ToPageAsync(pagingArguments, cancellationToken)
+            .ToConnectionAsync();
     }
 
-    public Task<Post?> PostById(
+    public static Task<Post?> PostById(
         Guid id,
-        [Service] IPostByIdDataLoader postByIdDataLoader,
-        IResolverContext resolverContext)
+        [Service] IPostByIdDataLoader postByIdDataLoader)
     {
-        return postByIdDataLoader.Select(resolverContext.Selection).LoadAsync(id);
+        return postByIdDataLoader.LoadAsync(id);
     }
 }
-

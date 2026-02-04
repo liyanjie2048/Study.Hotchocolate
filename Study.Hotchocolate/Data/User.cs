@@ -1,8 +1,7 @@
 namespace Study.HotChocolate.Data;
 
-public class User
+public class User : Entity
 {
-    public Guid Id { get; set; }
     public required string Name { get; set; }
     public required string Email { get; set; }
     public required Address Address { get; set; }
@@ -17,5 +16,5 @@ public class User
         ? null
         : Email.Split('@').Last();
 
-    public string AddressDetail => $"Test: {(Address is null ? "null" : $"C:{Address.AdCode} ({Address.Detail})")}";
+    public string AddressDetail => $"Test: {(Address is null ? "null" : $"c:{Address.AdCode}({Address.Detail})")}";
 }

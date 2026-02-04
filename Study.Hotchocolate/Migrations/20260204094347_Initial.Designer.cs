@@ -13,7 +13,7 @@ using Study.HotChocolate.Data;
 namespace Study.Hotchocolate.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260203122117_Initial")]
+    [Migration("20260204094347_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -37,6 +37,9 @@ namespace Study.Hotchocolate.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -57,6 +60,9 @@ namespace Study.Hotchocolate.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Email")
                         .IsRequired()
