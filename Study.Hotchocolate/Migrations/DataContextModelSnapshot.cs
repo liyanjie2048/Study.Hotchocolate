@@ -71,6 +71,12 @@ namespace Study.Hotchocolate.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<int>("Provider")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.ComplexProperty(typeof(Dictionary<string, object>), "Address", "Study.HotChocolate.Data.User.Address#Address", b1 =>
                         {
                             b1.IsRequired();

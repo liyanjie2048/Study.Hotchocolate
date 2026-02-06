@@ -25,6 +25,8 @@ builder.Services.AddDbContextPool<DataContext>(optionsBuilder =>
                 .RuleFor(x => x.Title, _ => _.Lorem.Sentence(5))
                 .RuleFor(x => x.Content, _ => _.Lorem.Sentence(10))
                 .Generate(3))
+            .RuleFor(_ => _.Type, _ => (UserType)_.Random.Number(1, 2))
+            .RuleFor(_ => _.Provider, _ => (UserProvider)_.Random.Number(1, 2))
             .Generate(10));
         context.SaveChanges();
     });

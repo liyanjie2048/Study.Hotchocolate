@@ -10,6 +10,25 @@ public class User : Entity
     public virtual ICollection<Post> Posts { get; set; } = [];
 
 
+    public UserType Type { get; set; }
+
+    public string TypeName => Type switch
+    {
+        UserType.User => "User",
+        UserType.Admin => "Admin",
+        _ => "Unknown",
+    };
+
+    public UserProvider Provider { get; set; }
+
+    public string ProviderName => Provider switch
+    {
+        UserProvider.Google => "Google",
+        UserProvider.Facebook => "Facebook",
+        _ => "Unknown",
+    };
+
+
     public int? NameLength => Name?.Length;
 
     public string? EmailDomain => string.IsNullOrEmpty(Email)

@@ -13,7 +13,7 @@ using Study.HotChocolate.Data;
 namespace Study.Hotchocolate.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260204094347_Initial")]
+    [Migration("20260206041409_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -73,6 +73,12 @@ namespace Study.Hotchocolate.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("Provider")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.ComplexProperty(typeof(Dictionary<string, object>), "Address", "Study.HotChocolate.Data.User.Address#Address", b1 =>
                         {
