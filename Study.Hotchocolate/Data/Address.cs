@@ -2,7 +2,8 @@ namespace Study.HotChocolate.Data;
 
 public class Address
 {
-    public string? AdCode { get; set; }
+    public int AdCode { get; set; }
+    [MaxLength(50)]
     public string? Detail { get; set; }
 }
 

@@ -84,7 +84,7 @@ namespace Study.Hotchocolate.Migrations
                         {
                             b1.IsRequired();
 
-                            b1.Property<string>("AdCode")
+                            b1.Property<int>("AdCode")
                                 .HasMaxLength(255);
 
                             b1.Property<string>("Detail")

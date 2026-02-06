@@ -1,3 +1,5 @@
+global using System.ComponentModel.DataAnnotations;
+
 global using Bogus;
 
 global using GreenDonut.Data;

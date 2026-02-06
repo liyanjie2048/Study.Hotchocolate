@@ -13,7 +13,7 @@ using Study.HotChocolate.Data;
 namespace Study.Hotchocolate.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260206075520_Initial")]
+    [Migration("20260206080432_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -87,7 +87,7 @@ namespace Study.Hotchocolate.Migrations
                         {
                             b1.IsRequired();
 
-                            b1.Property<string>("AdCode")
+                            b1.Property<int>("AdCode")
                                 .HasMaxLength(255);
 
                             b1.Property<string>("Detail")

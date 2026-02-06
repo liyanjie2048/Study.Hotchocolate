@@ -12,7 +12,7 @@ builder.Services.AddDbContextPool<DataContext>(optionsBuilder =>
             .RuleFor(x => x.Email, _ => _.Internet.Email())
             .RuleFor(x => x.Age, _ => _.Random.Number(18, 50))
             .RuleFor(_ => _.Address, _ => new Faker<Address>()
-                .RuleFor(x => x.AdCode, a => a.Random.Number(100000000, 999999999).ToString())
+                .RuleFor(x => x.AdCode, a => a.Random.Number(100000000, 999999999))
                 .RuleFor(x => x.Detail, a => a.Address.StreetAddress()))
             .RuleFor(_ => _.State, _ => new Faker<State>()
                 .RuleFor(x => x.Value, _ => true)

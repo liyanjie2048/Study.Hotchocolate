@@ -2,8 +2,12 @@ namespace Study.HotChocolate.Data;
 
 public class User : Entity
 {
+    [MaxLength(50)]
     public required string Name { get; set; }
+
+    [MaxLength(50)]
     public required string Email { get; set; }
+
     public int Age { get; set; }
     public required Address Address { get; set; }
     public required State State { get; set; }
