@@ -10,6 +10,7 @@ builder.Services.AddDbContextPool<DataContext>(optionsBuilder =>
         context.Set<User>().AddRange(new Faker<User>()
             .RuleFor(x => x.Name, _ => _.Name.FullName())
             .RuleFor(x => x.Email, _ => _.Internet.Email())
+            .RuleFor(x => x.Age, _ => _.Random.Number(18, 50))
             .RuleFor(_ => _.Address, _ => new Faker<Address>()
                 .RuleFor(x => x.AdCode, a => a.Random.Number(100000000, 999999999).ToString())
                 .RuleFor(x => x.Detail, a => a.Address.StreetAddress()))
@@ -25,8 +26,8 @@ builder.Services.AddDbContextPool<DataContext>(optionsBuilder =>
                 .RuleFor(x => x.Title, _ => _.Lorem.Sentence(5))
                 .RuleFor(x => x.Content, _ => _.Lorem.Sentence(10))
                 .Generate(3))
-            .RuleFor(_ => _.Type, _ => (UserType)_.Random.Number(1, 2))
-            .RuleFor(_ => _.Provider, _ => (UserProvider)_.Random.Number(1, 2))
+            .RuleFor(_ => _.Type, _ => _.Random.Number(1, 2))
+            .RuleFor(_ => _.Provider, _ => (Provider)_.Random.Number(1, 2))
             .Generate(10));
         context.SaveChanges();
     });

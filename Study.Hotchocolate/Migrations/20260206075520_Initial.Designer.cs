@@ -13,7 +13,7 @@ using Study.HotChocolate.Data;
 namespace Study.Hotchocolate.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260206041409_Initial")]
+    [Migration("20260206075520_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -60,6 +60,9 @@ namespace Study.Hotchocolate.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("datetimeoffset");

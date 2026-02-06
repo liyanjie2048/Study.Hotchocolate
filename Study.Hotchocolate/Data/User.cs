@@ -4,27 +4,28 @@ public class User : Entity
 {
     public required string Name { get; set; }
     public required string Email { get; set; }
+    public int Age { get; set; }
     public required Address Address { get; set; }
     public required State State { get; set; }
     public List<Identity> Identities { get; set; } = [];
     public virtual ICollection<Post> Posts { get; set; } = [];
 
 
-    public UserType Type { get; set; }
+    public int Type { get; set; }
 
     public string TypeName => Type switch
     {
-        UserType.User => "User",
-        UserType.Admin => "Admin",
+        1 => "Admin",
+        2 => "User",
         _ => "Unknown",
     };
 
-    public UserProvider Provider { get; set; }
+    public Provider Provider { get; set; }
 
     public string ProviderName => Provider switch
     {
-        UserProvider.Google => "Google",
-        UserProvider.Facebook => "Facebook",
+        Provider.Google => "Google",
+        Provider.Facebook => "Facebook",
         _ => "Unknown",
     };
 
@@ -35,5 +36,10 @@ public class User : Entity
         ? null
         : Email.Split('@').Last();
 
+    public string? AgenSummary => $"{Age} years old";
     public string AddressDetail => $"Test: {(Address is null ? "null" : $"c:{Address.AdCode}({Address.Detail})")}";
+
+    public string PostSummary => Posts.Count == 0
+        ? "None"
+        : string.Join(',', Posts.Select(x => x.Title));
 }

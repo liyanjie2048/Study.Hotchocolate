@@ -1,6 +1,6 @@
 namespace Study.HotChocolate.Data;
 
-public enum UserProvider
+public enum Provider
 {
     Google = 1,
     Facebook = 2,
