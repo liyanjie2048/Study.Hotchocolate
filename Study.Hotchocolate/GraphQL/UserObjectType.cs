@@ -12,12 +12,13 @@ public class UserObjectType : ObjectType<User>
         descriptor.Field(_ => _.AgenSummary).ParentRequires<User>(_ => new { _.Age }); // works
 
         // descriptor.Field(_ => _.AddressDetail).ParentRequires<User>(_ => new { _.Address.AdCode, _.Address.Detail });    // does not work
-        descriptor.Field(_ => _.AddressDetail)
-            .ParentRequires<User>(_ => _.Address.AdCode)
-            .ParentRequires<User>(_ => _.Address.Detail!); // works
+        // descriptor.Field(_ => _.AddressDetail).ParentRequires<User>(_ => new { Address = new { _.Address.AdCode, _.Address.Detail } }); // does not work
+        // descriptor.Field(_ => _.AddressDetail)
+        //     .ParentRequires<User>(_ => _.Address.AdCode)
+        //     .ParentRequires<User>(_ => _.Address.Detail!); // works
 
         descriptor.Field(_ => _.Identities).ParentRequires<User>(_ => _.Identities);
-        descriptor.Field(_ => _.PostSummary).ParentRequires<User>(_ => _.Posts.Select(__ => __.Title));    // does not work
+        descriptor.Field(_ => _.PostSummary).ParentRequires<User>(_ => _.Posts.Select(__ => __.Title)); // does not work
 
         // descriptor.Field(_ => _.TypeName).ParentRequires<User>(_ => _.Type);                // does not work
         // descriptor.Field(_ => _.ProviderName).ParentRequires<User>(_ => _.Provider);        // does not work
